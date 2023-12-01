@@ -12,7 +12,6 @@ import (
     "github.com/gorilla/mux"
     "gorm.io/driver/mysql"
     "gorm.io/gorm"
-    "github.com/joho/godotenv"
     "github.com/google/uuid"
     "github.com/gorilla/sessions"
     "github.com/go-gomail/gomail"
@@ -44,7 +43,7 @@ type Post struct {
 }
 
 func init() {
-    load_dot_env()
+
     templates = template.Must(template.ParseGlob("templates/*.html"))
     
     // connect to db
@@ -302,12 +301,7 @@ func profileHandler(w http.ResponseWriter, r *http.Request) {
     renderTemplate(w, "profile", user)
 }
 
-func load_dot_env() {
-    err := godotenv.Load(".env")
-    if err != nil {
-        fmt.Println(err)
-    }
-}
+
 
 func sendWelcomeEmail(email, name string) {
     mailPort, err := strconv.Atoi(os.Getenv("MAIL_PORT"))
